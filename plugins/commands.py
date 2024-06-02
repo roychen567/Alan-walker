@@ -73,7 +73,7 @@ async def start(client, message):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_video(
-            video=PICS, 
+            video="1BAACAgQAAxkBAAEDc9ZmXIihEj6UjYSPiLZ-MK636jm2MAACcAQAAqJ_fVCCjX0JooHiIh4E", 
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
@@ -97,7 +97,7 @@ async def start(client, message):
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_video(
-            video=PICS,
+            video="BAACAgQAAxkBAAEDc9ZmXIihEj6UjYSPiLZ-MK636jm2MAACcAQAAqJ_fVCCjX0JooHiIh4E",
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
