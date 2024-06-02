@@ -824,8 +824,8 @@ async def auto_filter(client, msg, spoll=False):
         await asyncio.sleep(180)
         await mat.delete()
        # await message.delete()
-   # if spoll:
-      #  await msg.message.delete()
+    if spoll:
+        await msg.message.delete()
 
 
 async def advantage_spell_chok(msg):
@@ -883,12 +883,11 @@ async def advantage_spell_chok(msg):
     spell_check_del = await msg.reply_text(
         text="I Cᴏᴜʟᴅɴ'ᴛ Fɪɴᴅ Aɴʏᴛʜɪɴɢ Rᴇʟᴀᴛᴇᴅ Tᴏ Tʜᴀᴛ. Dɪᴅ Yᴏᴜ Mᴇᴀɴ Aɴʏ Oɴᴇ Oғ Tʜᴇsᴇ?",
         reply_markup=InlineKeyboardMarkup(btn),
-        reply_to_message_id=mv_id
+        reply_to_message_id=msg.id
     )
     await asyncio.sleep(90)
     await spell_check_del.delete()
     await msg.delete()
-    
 
 async def global_filters(client, message, text=False):
     group_id = message.chat.id
