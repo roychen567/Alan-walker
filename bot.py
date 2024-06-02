@@ -69,18 +69,7 @@ class Bot(Client):
                 f.write(f"REQ_CHANNEL={req}\n")
             logging.info("Loading REQ_CHANNEL from database...")
             os.execl(sys.executable, sys.executable, "bot.py")
-            return
-        if REQ_CHANNEL2 == None:
-            with open("./dynamic.env", "wt+") as f:
-                req = await JoinReqs2().get_fsub_chat()
-                if req is None:
-                    req = False
-                else:
-                    req = req['chat_id']
-                f.write(f"REQ_CHANNEL2={req}\n")
-            logging.info("Loading CHANNEL_REQ from database...")
-            os.execl(sys.executable, sys.executable, "bot.py")
-            return 
+            return        
         me = await self.get_me()
         temp.ME = me.id
         temp.U_NAME = me.username
