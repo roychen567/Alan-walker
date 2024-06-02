@@ -7,7 +7,7 @@ import random
 import os
 import time
 from pyrogram import enums
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.errors import ChatWriteForbidden
 
 def time_to_seconds(time):
