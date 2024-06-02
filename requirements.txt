@@ -15,4 +15,4 @@ pytz
 requests
 tgcrypto
 yt_dlp
-youtube_search_python
+youtube_search
