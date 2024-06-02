@@ -3,11 +3,9 @@ from pyrogram import Client, filters
 import yt_dlp
 from youtube_search import YoutubeSearch
 import requests
-import wget
 import random
 import os
 import time
-import hashlib
 from pyrogram import enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from pyrogram.errors import ChatWriteForbidden
