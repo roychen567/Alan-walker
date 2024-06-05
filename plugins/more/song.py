@@ -16,8 +16,7 @@ def time_to_seconds(time):
 
 
 @Client.on_message(filters.command('song') & filters.private)
-def song(client, message):
-
+async def song_fetch(client, message):
     user_id = message.from_user.id 
     user_name = message.from_user.first_name 
     rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
@@ -26,7 +25,7 @@ def song(client, message):
     for i in message.command[1:]:
         query += ' ' + str(i)
     print(query)
-    m = message.reply("**ѕєαrchíng чσur ѕσng...!**")
+    mat = await message.reply("**ѕєαrchíng чσur ѕσng...!**")
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -45,24 +44,24 @@ def song(client, message):
         views = results[0]["views"]
 
     except Exception as e:
-        m.edit(
+        await mat.edit(
             "**𝙵𝙾𝚄𝙽𝙳 𝙽𝙾𝚃𝙷𝙸𝙽𝙶 𝙿𝙻𝙴𝙰𝚂𝙴 𝙲𝙾𝚁𝚁𝙴𝙲𝚃 𝚃𝙷𝙴 𝚂𝙿𝙴𝙻𝙻𝙸𝙽𝙶 𝙾𝚁 𝚂𝙴𝙰𝚁𝙲𝙷 𝙰𝙽𝚈 𝙾𝚃𝙷𝙴𝚁 𝚂𝙾𝙽𝙶**"
         )
         print(str(e))
         return
-    m.edit("**dσwnlσαdíng чσur ѕσng...!**")
+    await mat.edit("**dσwnlσαdíng чσur ѕσng...!**")
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = '**JOIN ›› [🍁 ᴄʜᴀɴɴᴇʟ 🍁](https://t.me/MLZ_BOTZ)**\n**𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 ›› [muѕíc вσч](https://t.me/CcommusicBot)**\n@MLZ_BOTZ**'
+        rep = '**JOIN ›› [🍁 ᴄʜᴀɴɴᴇʟ 🍁](https://t.me/+sVl4djnLE6plZDE1)**'
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
             secmul *= 60
-        message.reply_audio(audio_file, caption=rep, parse_mode=enums.ParseMode.MARKDOWN,quote=False, title=title, duration=dur, performer=performer, thumb=thumb_name)
-        m.delete()
+        await message.reply_audio(audio_file, caption=rep, parse_mode=enums.ParseMode.MARKDOWN,quote=False, title=title, duration=dur, performer=performer, thumb=thumb_name)
+        await mat.delete()
     except Exception as e:
         m.edit("**🚫 𝙴𝚁𝚁𝙾𝚁 🚫**")
         print(e)
