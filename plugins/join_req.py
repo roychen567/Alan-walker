@@ -13,7 +13,7 @@ import sys
 db = JoinReqs
 logger = getLogger(__name__)
 
-@Client.on_chat_join_request(filters.chat(REQ_CHANNEL if REQ_CHANNEL else "self"))
+@Client.on_chat_join_request(filters.chat(REQ_CHANNEL1 if REQ_CHANNEL1 else "self"))
 async def join_reqs(client, join_req: ChatJoinRequest):
 
     if db().isActive():
