@@ -8,12 +8,13 @@ from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from utils import check_loop_sub, get_size
 from database.join_reqs import JoinReqs
-from info import REQ_CHANNEL, AUTH_CHANNEL, JOIN_REQS_DB, ADMINS, CUSTOM_FILE_CAPTION
+from info import REQ_CHANNEL1, REQ_CHANNEL2, AUTH_CHANNEL, JOIN_REQS_DB, ADMINS, CUSTOM_FILE_CAPTION
 from database.ia_filterdb import get_file_details
 from logging import getLogger
 
 logger = getLogger(__name__)
-INVITE_LINK = None
+INVITE_LINK1 = None
+INVITE_LINK2 = None
 db = JoinReqs
 
 async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="checksub"):
@@ -23,7 +24,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
     if update.from_user.id in auth:
         return True
 
-    if not AUTH_CHANNEL and not REQ_CHANNEL:
+    if not AUTH_CHANNEL and not REQ_CHANNEL1 and not REQ_CHANNEL2:
         return True
 
     is_cb = False
@@ -35,16 +36,25 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
     # Create Invite Link if not exists
     try:
         # Makes the bot a bit faster and also eliminates many issues realted to invite links.
-        if INVITE_LINK is None:
-            invite_link = (await bot.create_chat_invite_link(
-                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL and not JOIN_REQS_DB else REQ_CHANNEL),
-                creates_join_request=True if REQ_CHANNEL and JOIN_REQS_DB else False
+        if INVITE_LINK1 is None:
+            invite_link1 = (await bot.create_chat_invite_link(
+                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not JOIN_REQS_DB else REQ_CHANNEL1),
+                creates_join_request=True if REQ_CHANNEL1 and JOIN_REQS_DB else False
             )).invite_link
-            INVITE_LINK = invite_link
+            INVITE_LINK1 = invite_link1
             logger.info("Created Req link")
         else:
-            invite_link = INVITE_LINK
-
+            invite_link1 = INVITE_LINK1
+        if INVITE_LINK2 is None:
+            invite_link2 = (await bot.create_chat_invite_link(
+                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL2 and not JOIN_REQS_DB else REQ_CHANNEL2),
+                creates_join_request=True if REQ_CHANNEL2 and JOIN_REQS_DB else False
+            )).invite_link
+            INVITE_LINK1 = invite_link2
+            logger.info("Created Req link")
+        else:
+            invite_link2 = INVITE_LINK2
+            
     except FloodWait as e:
         await asyncio.sleep(e.x)
         fix_ = await ForceSub(bot, update, file_id)
@@ -60,10 +70,10 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         return False
 
     # Mian Logic
-    if REQ_CHANNEL and db().isActive():
+    if REQ_CHANNEL1 and db().isActive():
         try:
             # Check if User is Requested to Join Channel
-            user = await db().get_user(update.from_user.id)
+            user = await db().get_user1(update.from_user.id)
             if user and user["user_id"] == update.from_user.id:
                 return True
         except Exception as e:
@@ -74,13 +84,28 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 disable_web_page_preview=True
             )
             return False
-
+        buttons = [[InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)]]
+    if REQ_CHANNEL2 and db().isActive():
+        try:
+            # Check if User is Requested to Join Channel
+            user = await db().get_user2(update.from_user.id)
+            if user["user_id"] =! update.from_user.id:
+                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link2)])
+        except Exception as e:
+            logger.exception(e, exc_info=True)
+            await update.reply(
+                text="Something went Wrong.",
+                parse_mode=enums.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            return False
+        
     try:
         if not AUTH_CHANNEL:
             raise UserNotParticipant
         # Check if User is Already Joined Channel
         user = await bot.get_chat_member(
-                   chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL and not db().isActive() else REQ_CHANNEL), 
+                   chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not db().isActive() else REQ_CHANNEL1), 
                    user_id=update.from_user.id
                )
         if user.status == "kicked":
@@ -97,13 +122,6 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
             return True
     except UserNotParticipant:
         text=f"""<b>𝐇𝐞𝐲..</b>{update.from_user.mention} 🙋‍♂️ \n\nᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ʙᴏᴛ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ꜰɪʀꜱᴛ, \nᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ.!! \n\n <b>താഴെ കാണുന്ന 𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 എന്ന ബട്ടണിൽ ക്ലിക്ക് ചെയ്യിത് ചാനലിൽ ജോയിൻ ചെയ്യുക, \n\nഅപ്പോൾ നിങ്ങൾക്ക് ഓട്ടോമാറ്റിക് ആയി മൂവി ലഭിക്കുന്നതാണ്.!!</b>"""
-
-        buttons = [
-            [
-                InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟", url=invite_link)
-            ]
-        ]
-
         if file_id is False:
             buttons.pop()
 
