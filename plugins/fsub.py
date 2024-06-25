@@ -78,7 +78,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         )
         return False
 
-
+    buttons =[]
     # Mian Logic
     if REQ_CHANNEL1 and db().isActive():
         try:
@@ -86,6 +86,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
             user = await db().get_user1(update.from_user.id)
             if user and user["user_id"] == update.from_user.id:
                 return True
+            buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)])
         except Exception as e:
             logger.exception(e, exc_info=True)
             await update.reply(
@@ -94,13 +95,12 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 disable_web_page_preview=True
             )
             return False
-        buttons = [[InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)]]
     if REQ_CHANNEL2 and db().isActive():
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user2(update.from_user.id)
             if user and not user["user_id"]:
-                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link2)])
+                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
         except Exception as e:
             logger.exception(e, exc_info=True)
             await update.reply(
