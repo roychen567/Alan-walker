@@ -89,7 +89,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user2(update.from_user.id)
-            if user["user_id"] =! update.from_user.id:
+            if user["user_id"] != update.from_user.id:
                 buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link2)])
         except Exception as e:
             logger.exception(e, exc_info=True)
