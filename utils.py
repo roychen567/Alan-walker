@@ -1,6 +1,6 @@
 import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid, ChatAdminRequired
-from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM, ADMINS, REQ_CHANNEL
+from info import AUTH_CHANNEL, LONG_IMDB_DESCRIPTION, MAX_LIST_ELM, ADMINS, REQ_CHANNEL1, REQ_CHANNEL2
 from imdb import Cinemagoer
 import asyncio
 from pyrogram.types import Message, InlineKeyboardButton
@@ -48,9 +48,10 @@ async def check_loop_sub(client, message):
     while True:
         if count == 15:
             return False
-        check = await is_subscribed(client, message)
+        check = await is_subscribed_one(client, message)
+        checkk = await is_subscribed_two(client, message)
         count += 1
-        if check:
+        if check and checkk:
             return True
         else:
             pass
