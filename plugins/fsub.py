@@ -35,29 +35,31 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         
     try:
         try:
-            if INVITE_LINK1 is None:
-                invite_link1 = (await bot.create_chat_invite_link(
-                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not JOIN_REQS_DB else REQ_CHANNEL1),
-                    creates_join_request=True if REQ_CHANNEL1 and JOIN_REQS_DB else False
-                )).invite_link
-                INVITE_LINK1 = invite_link1
-                logger.info("Created Req link")
-            else:
-                invite_link1 = INVITE_LINK1
+            if REQ_CHANNEL1 is not None:
+                if INVITE_LINK1 is None:
+                    invite_link1 = (await bot.create_chat_invite_link(
+                        chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not JOIN_REQS_DB else REQ_CHANNEL1),
+                        creates_join_request=True if REQ_CHANNEL1 and JOIN_REQS_DB else False
+                    )).invite_link
+                    INVITE_LINK1 = invite_link1
+                    logger.info("Created Req link")
+                else:
+                    invite_link1 = INVITE_LINK1
         except Exception as err1:
             print(f"Error creating invite link 1: {err1}")
             invite_link1 = None
 
         try:
-            if INVITE_LINK2 is None:
-                invite_link2 = (await bot.create_chat_invite_link(
-                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL2 and not JOIN_REQS_DB else REQ_CHANNEL2),
-                    creates_join_request=True if REQ_CHANNEL2 and JOIN_REQS_DB else False
-                )).invite_link
-                INVITE_LINK2 = invite_link2
-                logger.info("Created Req link")
-            else:
-                invite_link2 = INVITE_LINK2
+            if REQ_CHANNEL2 is not None:
+                if INVITE_LINK2 is None:
+                    invite_link2 = (await bot.create_chat_invite_link(
+                        chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL2 and not JOIN_REQS_DB else REQ_CHANNEL2),
+                        creates_join_request=True if REQ_CHANNEL2 and JOIN_REQS_DB else False
+                    )).invite_link
+                    INVITE_LINK2 = invite_link2
+                    logger.info("Created Req link")
+                else:
+                    invite_link2 = INVITE_LINK2
         except Exception as err2:
             print(f"Error creating invite link 2: {err2}")
             invite_link2 = None
@@ -78,7 +80,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
 
 
     # Mian Logic
-    if REQ_CHANNEL1 and db().isActive():
+    if REQ_CHANNEL1 is not None and db().isActive():
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user1(update.from_user.id)
@@ -93,7 +95,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
             )
             return False
         buttons = [[InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)]]
-    if REQ_CHANNEL2 and db().isActive():
+    if REQ_CHANNEL2 is not None and db().isActive():
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user2(update.from_user.id)
