@@ -59,17 +59,28 @@ class Bot(Client):
         temp.BANNED_USERS = b_users
         temp.BANNED_CHATS = b_chats
         await super().start()        
-        if REQ_CHANNEL == None:
+        if REQ_CHANNEL1 == None:
             with open("./dynamic.env", "wt+") as f:
-                req = await JoinReqs().get_fsub_chat()
-                if req is None:
-                    req = False
+                req1 = await JoinReqs().get_fsub_chat1()
+                if req1 is None:
+                    req1 = False
                 else:
-                    req = req['chat_id']
-                f.write(f"REQ_CHANNEL={req}\n")
-            logging.info("Loading REQ_CHANNEL from database...")
+                    req1 = req['chat_id']
+                f.write(f"REQ_CHANNEL1={req1}\n")
+            logging.info("Loading REQ_CHANNEL1 from database...")
             os.execl(sys.executable, sys.executable, "bot.py")
-            return        
+            return 
+        if REQ_CHANNEL2 == None:
+            with open("./dynamic.env", "wt+") as f:
+                req2 = await JoinReqs().get_fsub_chat2()
+                if req2 is None:
+                    req2 = False
+                else:
+                    req2 = req['chat_id']
+                f.write(f"REQ_CHANNEL2={req2}\n")
+            logging.info("Loading REQ_CHANNEL2 from database...")
+            os.execl(sys.executable, sys.executable, "bot.py")
+            return 
         me = await self.get_me()
         temp.ME = me.id
         temp.U_NAME = me.username
