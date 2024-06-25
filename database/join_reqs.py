@@ -13,7 +13,8 @@ class JoinReqs:
             self.client = motor.motor_asyncio.AsyncIOMotorClient(JOIN_REQS_DB)
             self.db = self.client["JoinReqs"]
             self.col = self.db[str(REQ_CHANNEL)]
-            self.chat_col = self.db["ChatId"]
+            self.chat_col1 = self.db["ChatId1"]
+            self.chat_col2 = self.db["ChatId2"]
         else:
             self.client = None
             self.db = None
@@ -46,15 +47,29 @@ class JoinReqs:
     async def get_all_users_count(self):
         return await self.col.count_documents({})
         
-    async def add_fsub_chat(self, chat_id):
+    async def add_fsub_chat1(self, chat_id):
         try:
-            await self.chat_col.delete_many({})
-            await self.chat_col.insert_one({"chat_id": chat_id})
+            await self.chat_col1.delete_many({})
+            await self.chat_col1.insert_one({"chat_id": chat_id})
         except:
             pass
 
-    async def get_fsub_chat(self):
-        return await self.chat_col.find_one({})
+    async def get_fsub_chat1(self):
+        return await self.chat_col1.find_one({})
 
-    async def delete_fsub_chat(self, chat_id):
-        await self.chat_col.delete_one({"chat_id": chat_id})
+    async def delete_fsub_chat1(self, chat_id):
+        await self.chat_col1.delete_one({"chat_id": chat_id})
+
+    async def add_fsub_chat2(self, chat_id):
+        try:
+            await self.chat_col2.delete_many({})
+            await self.chat_col2.insert_one({"chat_id": chat_id})
+        except:
+            pass
+
+    async def get_fsub_chat2.(self):
+        return await self.chat_col2.find_one({})
+
+    async def delete_fsub_chat2(self, chat_id):
+        await self.chat_col2.delete_one({"chat_id": chat_id})
+        
