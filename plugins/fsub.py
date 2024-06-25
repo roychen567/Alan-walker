@@ -32,42 +32,50 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         update.message.from_user = update.from_user
         update = update.message
         is_cb = True
-
-    # Create Invite Link if not exists
+        
     try:
-        # Makes the bot a bit faster and also eliminates many issues realted to invite links.
-        if INVITE_LINK1 is None:
-            invite_link1 = (await bot.create_chat_invite_link(
-                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not JOIN_REQS_DB else REQ_CHANNEL1),
-                creates_join_request=True if REQ_CHANNEL1 and JOIN_REQS_DB else False
-            )).invite_link
-            INVITE_LINK1 = invite_link1
-            logger.info("Created Req link")
-        else:
-            invite_link1 = INVITE_LINK1
-        if INVITE_LINK2 is None:
-            invite_link2 = (await bot.create_chat_invite_link(
-                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL2 and not JOIN_REQS_DB else REQ_CHANNEL2),
-                creates_join_request=True if REQ_CHANNEL2 and JOIN_REQS_DB else False
-            )).invite_link
-            INVITE_LINK1 = invite_link2
-            logger.info("Created Req link")
-        else:
-            invite_link2 = INVITE_LINK2
-            
+        try:
+            if INVITE_LINK1 is None:
+                invite_link1 = (await bot.create_chat_invite_link(
+                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not JOIN_REQS_DB else REQ_CHANNEL1),
+                    creates_join_request=True if REQ_CHANNEL1 and JOIN_REQS_DB else False
+                )).invite_link
+                INVITE_LINK1 = invite_link1
+                logger.info("Created Req link")
+            else:
+                invite_link1 = INVITE_LINK1
+        except Exception as err1:
+            print(f"Error creating invite link 1: {err1}")
+            invite_link1 = None
+
+        try:
+            if INVITE_LINK2 is None:
+                invite_link2 = (await bot.create_chat_invite_link(
+                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL2 and not JOIN_REQS_DB else REQ_CHANNEL2),
+                    creates_join_request=True if REQ_CHANNEL2 and JOIN_REQS_DB else False
+                )).invite_link
+                INVITE_LINK2 = invite_link2
+                logger.info("Created Req link")
+            else:
+                invite_link2 = INVITE_LINK2
+        except Exception as err2:
+            print(f"Error creating invite link 2: {err2}")
+            invite_link2 = None
+
     except FloodWait as e:
         await asyncio.sleep(e.x)
         fix_ = await ForceSub(bot, update, file_id)
         return fix_
 
     except Exception as err:
-        print(f"Unable to do Force Subscribe to {REQ_CHANNEL1}\n\nError: {err}\n\n")
+        print(f"Unable to do Force Subscribe \n\nError: {err}\n\n")
         await update.reply(
             text="Something went Wrong.",
             parse_mode=enums.ParseMode.MARKDOWN,
             disable_web_page_preview=True
         )
         return False
+
 
     # Mian Logic
     if REQ_CHANNEL1 and db().isActive():
