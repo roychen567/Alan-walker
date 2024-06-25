@@ -65,7 +65,7 @@ class Bot(Client):
                 if req1 is None:
                     req1 = False
                 else:
-                    req1 = req['chat_id']
+                    req1 = req1['chat_id']
                 f.write(f"REQ_CHANNEL1={req1}\n")
             logging.info("Loading REQ_CHANNEL1 from database...")
             os.execl(sys.executable, sys.executable, "bot.py")
@@ -76,7 +76,7 @@ class Bot(Client):
                 if req2 is None:
                     req2 = False
                 else:
-                    req2 = req['chat_id']
+                    req2 = req2['chat_id']
                 f.write(f"REQ_CHANNEL2={req2}\n")
             logging.info("Loading REQ_CHANNEL2 from database...")
             os.execl(sys.executable, sys.executable, "bot.py")
