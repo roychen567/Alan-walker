@@ -67,7 +67,7 @@ class JoinReqs:
         except:
             pass
 
-    async def get_fsub_chat2.(self):
+    async def get_fsub_chat2(self):
         return await self.chat_col2.find_one({})
 
     async def delete_fsub_chat2(self, chat_id):
