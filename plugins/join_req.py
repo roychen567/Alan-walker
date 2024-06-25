@@ -30,25 +30,37 @@ async def join_reqs(client, join_req: ChatJoinRequest):
         )
 
 
-@Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
-async def total_requests(client, message):
+@Client.on_message(filters.command("totalrequests1") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
+async def total_requests1(client, message):
 
     if db().isActive():
-        total = await db().get_all_users_count()
+        total1 = await db().get_all_users_count1()
+        total2 = await db().get_all_users_count2()
         await message.reply_text(
-            text=f"Total Requests: {total}",
+            text=f"Requests In Channel 1: {total1}\n\nRequests In Channel 1: {total2}",
             parse_mode=enums.ParseMode.MARKDOWN,
             disable_web_page_preview=True
         )
 
 
 @Client.on_message(filters.command("purgerequests") & filters.private & filters.user(ADMINS))
+async def purge_requests2(client, message):
+    
+    if db().isActive():
+        await db().delete_all_users1()
+        await message.reply_text(
+            text="Purged All Requests channel 1.",
+            parse_mode=enums.ParseMode.MARKDOWN,
+            disable_web_page_preview=True
+        )
+
+@Client.on_message(filters.command("purgerequests2") & filters.private & filters.user(ADMINS))
 async def purge_requests(client, message):
     
     if db().isActive():
-        await db().delete_all_users()
+        await db().delete_all_users2()
         await message.reply_text(
-            text="Purged All Requests.",
+            text="Purged All Requests channel 2.",
             parse_mode=enums.ParseMode.MARKDOWN,
             disable_web_page_preview=True
         )
@@ -97,18 +109,30 @@ async def add_fsub_chats2(bot: Client, update: Message):
 
 
 
-@Client.on_message(filters.command("delchat") & filters.user(ADMINS))
-async def clear_fsub_chats(bot: Client, update: Message):
+@Client.on_message(filters.command("delchat1") & filters.user(ADMINS))
+async def clear_fsub_chats1(bot: Client, update: Message):
 
-    await db().delete_fsub_chat(chat_id=(await db().get_fsub_chat())['chat_id'])
-    await update.reply_text(text="Deleted fsub chat from the database.", quote=True)
+    await db().delete_fsub_chat(chat_id=(await db().get_fsub_chat1())['chat_id'])
+    await update.reply_text(text="Deleted fsub chat 1 from the database.", quote=True)
     with open("./dynamic.env", "wt+") as f:
         f.write(f"REQ_CHANNEL=False\n")
 
-    logger.info("Restarting to update REQ_CHANNEL from database...")
+    logger.info("Restarting to update REQ_CHANNEL 1 from database...")
     await update.reply_text("Restarting...", quote=True)
     os.execl(sys.executable, sys.executable, "bot.py")
 
+@Client.on_message(filters.command("delchat2") & filters.user(ADMINS))
+async def clear_fsub_chats2(bot: Client, update: Message):
+
+    await db().delete_fsub_chat(chat_id=(await db().get_fsub_chat2())['chat_id'])
+    await update.reply_text(text="Deleted fsub chat 2 from the database.", quote=True)
+    with open("./dynamic.env", "wt+") as f:
+        f.write(f"REQ_CHANNEL=False\n")
+
+    logger.info("Restarting to update REQ_CHANNEL 2 from database...")
+    await update.reply_text("Restarting...", quote=True)
+    os.execl(sys.executable, sys.executable, "bot.py")
+    
 
 @Client.on_message(filters.command("viewchat") & filters.user(ADMINS))
 async def get_fsub_chat(bot: Client, update: Message):
