@@ -115,7 +115,7 @@ async def clear_fsub_chats1(bot: Client, update: Message):
     await db().delete_fsub_chat1(chat_id=(await db().get_fsub_chat1())['chat_id'])
     await update.reply_text(text="Deleted fsub chat 1 from the database.", quote=True)
     with open("./dynamic.env", "wt+") as f:
-        f.write(f"REQ_CHANNEL=False\n")
+        f.write(f"REQ_CHANNEL1=False\n")
 
     logger.info("Restarting to update REQ_CHANNEL 1 from database...")
     await update.reply_text("Restarting...", quote=True)
@@ -127,7 +127,7 @@ async def clear_fsub_chats2(bot: Client, update: Message):
     await db().delete_fsub_chat2(chat_id=(await db().get_fsub_chat2())['chat_id'])
     await update.reply_text(text="Deleted fsub chat 2 from the database.", quote=True)
     with open("./dynamic.env", "wt+") as f:
-        f.write(f"REQ_CHANNEL=False\n")
+        f.write(f"REQ_CHANNEL2=False\n")
 
     logger.info("Restarting to update REQ_CHANNEL 2 from database...")
     await update.reply_text("Restarting...", quote=True)
