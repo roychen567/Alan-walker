@@ -112,7 +112,7 @@ async def add_fsub_chats2(bot: Client, update: Message):
 @Client.on_message(filters.command("delchat1") & filters.user(ADMINS))
 async def clear_fsub_chats1(bot: Client, update: Message):
 
-    await db().delete_fsub_chat(chat_id=(await db().get_fsub_chat1())['chat_id'])
+    await db().delete_fsub_chat1(chat_id=(await db().get_fsub_chat1())['chat_id'])
     await update.reply_text(text="Deleted fsub chat 1 from the database.", quote=True)
     with open("./dynamic.env", "wt+") as f:
         f.write(f"REQ_CHANNEL=False\n")
@@ -124,7 +124,7 @@ async def clear_fsub_chats1(bot: Client, update: Message):
 @Client.on_message(filters.command("delchat2") & filters.user(ADMINS))
 async def clear_fsub_chats2(bot: Client, update: Message):
 
-    await db().delete_fsub_chat(chat_id=(await db().get_fsub_chat2())['chat_id'])
+    await db().delete_fsub_chat2(chat_id=(await db().get_fsub_chat2())['chat_id'])
     await update.reply_text(text="Deleted fsub chat 2 from the database.", quote=True)
     with open("./dynamic.env", "wt+") as f:
         f.write(f"REQ_CHANNEL=False\n")
