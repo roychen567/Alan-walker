@@ -53,8 +53,8 @@ async def purge_requests(client, message):
             disable_web_page_preview=True
         )
 
-@Client.on_message(filters.command("setchat") & filters.user(ADMINS))
-async def add_fsub_chats(bot: Client, update: Message):
+@Client.on_message(filters.command("setchat1") & filters.user(ADMINS))
+async def add_fsub_chats1(bot: Client, update: Message):
 
     chat = update.command[1] if len(update.command) > 1 else None
     if not chat:
@@ -63,16 +63,38 @@ async def add_fsub_chats(bot: Client, update: Message):
     else:
         chat = int(chat)
 
-    await db().add_fsub_chat(chat)
+    await db().add_fsub_chat1(chat)
 
     text = f"Added chat <code>{chat}</code> to the database."
     await update.reply_text(text=text, quote=True, parse_mode=enums.ParseMode.HTML)
     with open("./dynamic.env", "wt+") as f:
-        f.write(f"REQ_CHANNEL={chat}\n")
+        f.write(f"REQ_CHANNEL1={chat}\n")
 
-    logger.info("Restarting to update REQ_CHANNEL from database...")
+    logger.info("Restarting to update REQ_CHANNEL1 from database...")
     await update.reply_text("Restarting...", quote=True)
     os.execl(sys.executable, sys.executable, "bot.py")
+
+@Client.on_message(filters.command("setchat2") & filters.user(ADMINS))
+async def add_fsub_chats2(bot: Client, update: Message):
+
+    chat = update.command[1] if len(update.command) > 1 else None
+    if not chat:
+        await update.reply_text("Invalid chat id.", quote=True)
+        return
+    else:
+        chat = int(chat)
+
+    await db().add_fsub_chat2(chat)
+
+    text = f"Added chat <code>{chat}</code> to the database."
+    await update.reply_text(text=text, quote=True, parse_mode=enums.ParseMode.HTML)
+    with open("./dynamic.env", "wt+") as f:
+        f.write(f"REQ_CHANNEL2={chat}\n")
+
+    logger.info("Restarting to update REQ_CHANNEL2 from database...")
+    await update.reply_text("Restarting...", quote=True)
+    os.execl(sys.executable, sys.executable, "bot.py")
+
 
 
 @Client.on_message(filters.command("delchat") & filters.user(ADMINS))
@@ -90,10 +112,22 @@ async def clear_fsub_chats(bot: Client, update: Message):
 
 @Client.on_message(filters.command("viewchat") & filters.user(ADMINS))
 async def get_fsub_chat(bot: Client, update: Message):
-
-    chat = await db().get_fsub_chat()
-    if not chat:
-        await update.reply_text("No fsub chat found in the database.", quote=True)
-        return
-    else:
-        await update.reply_text(f"Fsub chat: <code>{chat['chat_id']}</code>", quote=True, parse_mode=enums.ParseMode.HTML)
+    try:
+        chat1 = await db().get_fsub_chat1()
+        chat2 = await db().get_fsub_chat2()
+        if not chat1 and not chat2:
+            await update.reply_text("No fsub chat found in the database.", quote=True)
+            return
+        text = "Fsub chats found:\n"
+        if chat1:
+            text += f"Chat 1: <code>{chat1['chat_id']}</code>\n"
+        else:
+            text += "Chat 1: Not set\n"
+        if chat2:
+            text += f"Chat 2: <code>{chat2['chat_id']}</code>\n"
+        else:
+            text += "Chat 2: Not set\n"
+        await update.reply_text(text, quote=True, parse_mode=enums.ParseMode.HTML)
+    except Exception as e:
+        logging.error(f"Error fetching fsub chats: {e}")
+        await update.reply_text("An error occurred while fetching the fsub chats. Please check the logs for more details.", quote=True)
