@@ -80,7 +80,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
 
     buttons =[]
     # Mian Logic
-    if REQ_CHANNEL1 and db().isActive():
+    if REQ_CHANNEL1:
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user1(update.from_user.id)
@@ -95,11 +95,11 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 disable_web_page_preview=True
             )
             return False
-    if REQ_CHANNEL2 and db().isActive():
+    if REQ_CHANNEL2:
         try:
             # Check if User is Requested to Join Channel
             user = await db().get_user2(update.from_user.id)
-            if user and not user["user_id"]:
+            if not user["user_id"]:
                 buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
         except Exception as e:
             logger.exception(e, exc_info=True)
