@@ -14,7 +14,7 @@ from database.ia_filterdb import Media2, Media3, Media4, Media5, get_file_detail
 from database.users_chats_db import db
 from plugins.fsub import ForceSub
 from info import CHANNELS, ADMINS, AUTH_CHANNEL, LOG_CHANNEL, PICS, BATCH_FILE_CAPTION, CUSTOM_FILE_CAPTION, PROTECT_CONTENT, DATABASE_URI, DATABASE_NAME
-from utils import get_settings, get_size, is_subscribed, save_group_settings, temp
+from utils import get_settings, get_size, is_subscribed_one, is_subscribed_two, save_group_settings, temp
 from database.connections_mdb import active_connection
 import re
 import json
