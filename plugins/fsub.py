@@ -6,7 +6,7 @@ import asyncio
 from pyrogram import Client, enums
 from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
-from utils import check_loop_sub, get_size
+from utils import check_loop_sub, get_size, is_subscribed_one, is_subscribed_two
 from database.join_reqs import JoinReqs
 from info import REQ_CHANNEL1, REQ_CHANNEL2, AUTH_CHANNEL, JOIN_REQS_DB, ADMINS, CUSTOM_FILE_CAPTION
 from database.ia_filterdb import get_file_details
@@ -82,11 +82,8 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
     # Mian Logic
     if REQ_CHANNEL1:
         try:
-            # Check if User is Requested to Join Channel
-            user = await db().get_user1(update.from_user.id)
-            if user and user["user_id"] == update.from_user.id:
-                return True
-            buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)])
+            if not await is_subscribed_one(bot, update):
+                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)])
         except Exception as e:
             logger.exception(e, exc_info=True)
             await update.reply(
@@ -97,10 +94,8 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
             return False
     if REQ_CHANNEL2:
         try:
-            # Check if User is Requested to Join Channel
-            user = await db().get_user2(update.from_user.id)
-            if user and not user["user_id"]:
-                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
+            if not await is_subscribed_two(bot, update):
+                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)])
         except Exception as e:
             buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
             logger.exception(e, exc_info=True)
