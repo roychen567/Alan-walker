@@ -92,10 +92,25 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 disable_web_page_preview=True
             )
             return False
+        if REQ_CHANNEL2:
+            try:
+                if not await is_subscribed_two(bot, update):
+                    buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
+                else: return True
+            except Exception as e:
+                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
+                logger.exception(e, exc_info=True)
+                await update.reply(
+                    text=f"Something went Wrong. {e}",
+                    parse_mode=enums.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+                return False
     if REQ_CHANNEL2:
         try:
             if not await is_subscribed_two(bot, update):
                 buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
+            else: return True
         except Exception as e:
             buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
             logger.exception(e, exc_info=True)
@@ -104,8 +119,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 parse_mode=enums.ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
-            return False
-        
+            return False   
     try:
         user = await bot.get_chat_member(
                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not db().isActive() else REQ_CHANNEL1), 
