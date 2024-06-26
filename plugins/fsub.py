@@ -90,7 +90,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         except Exception as e:
             logger.exception(e, exc_info=True)
             await update.reply(
-                text="Something went Wrong.",
+                text==f"Something went Wrong. {e}",
                 parse_mode=enums.ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
@@ -104,7 +104,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         except Exception as e:
             logger.exception(e, exc_info=True)
             await update.reply(
-                text="Something went Wrong.",
+                text=f"Something went Wrong. {e}",
                 parse_mode=enums.ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
