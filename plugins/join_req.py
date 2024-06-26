@@ -13,25 +13,24 @@ import sys
 db = JoinReqs
 logger = getLogger(__name__)
 
-@Client.on_chat_join_request(filters.chat(REQ_CHANNEL1 if REQ_CHANNEL1 else "self"))
-async def join_reqs(client, join_req: ChatJoinRequest):
 
-    if db().isActive():
-        user_id = join_req.from_user.id
-        first_name = join_req.from_user.first_name
-        username = join_req.from_user.username
-        date = join_req.date
+@Client.on_chat_join_request(filters.chat(REQ_CHANNEL1) | filters.chat(REQ_CHANNEL2))
+async def join_reqs(_, join_req: ChatJoinRequest):
+    user_id = join_req.from_user.id
+    first_name = join_req.from_user.first_name
+    username = join_req.from_user.username
+    date = join_req.date
+    try:
+        if join_req.chat.id == REQ_CHANNEL1:
+            await db().add_user1(user_id=user_id, first_name=first_name, username=username, date=date)
+        if join_req.chat.id == REQ_CHANNEL2:
+            await db().add_user2(user_id=user_id, first_name=first_name, username=username, date=date)
+    except Exception as e:
+        print(f"Error while adding join request: {e}")
+        
 
-        await db().add_user(
-            user_id=user_id,
-            first_name=first_name,
-            username=username,
-            date=date
-        )
-
-
-@Client.on_message(filters.command("totalrequests1") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
-async def total_requests1(client, message):
+@Client.on_message(filters.command("totalrequests") & filters.private & filters.user((ADMINS.copy() + [1125210189])))
+async def total_requests(client, message):
 
     if db().isActive():
         total1 = await db().get_all_users_count1()
@@ -43,8 +42,8 @@ async def total_requests1(client, message):
         )
 
 
-@Client.on_message(filters.command("purgerequests") & filters.private & filters.user(ADMINS))
-async def purge_requests2(client, message):
+@Client.on_message(filters.command("purgerequests1") & filters.private & filters.user(ADMINS))
+async def purge_requests1(client, message):
     
     if db().isActive():
         await db().delete_all_users1()
@@ -55,7 +54,7 @@ async def purge_requests2(client, message):
         )
 
 @Client.on_message(filters.command("purgerequests2") & filters.private & filters.user(ADMINS))
-async def purge_requests(client, message):
+async def purge_requests2(client, message):
     
     if db().isActive():
         await db().delete_all_users2()
