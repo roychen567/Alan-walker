@@ -26,7 +26,7 @@ PICS = (environ.get('PICS', 'https://graph.org/file/9c023dd906352100948c8.mp4'))
 
 # Admins, Channels & Users
 OWNER_ID = environ.get('OWNER_ID', '6350633297')
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6350633297 1380904444').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6350633297 1380904444 6123610560').split()]
 CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1001944406326').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
@@ -46,8 +46,12 @@ DATABASE_URI5 = environ.get('DATABASE_URI5', "mongodb+srv://Roy:Roy@alanwalker4.
 auth_channel = environ.get('AUTH_CHANNEL')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
-REQ_CHANNEL=environ.get("REQ_CHANNEL", None)
-REQ_CHANNEL = (int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL) else False) if REQ_CHANNEL is not None else None
+REQ_CHANNEL1 =environ.get("REQ_CHANNEL1", None)
+REQ_CHANNEL1 = (int(REQ_CHANNEL1) if REQ_CHANNEL1 and id_pattern.search(REQ_CHANNEL1) else False) if REQ_CHANNEL1 is not None else None
+
+REQ_CHANNEL2 =environ.get("REQ_CHANNEL2", None)
+REQ_CHANNEL2 = (int(REQ_CHANNEL2) if REQ_CHANNEL1 and id_pattern.search(REQ_CHANNEL2) else False) if REQ_CHANNEL2 is not None else None
+
 JOIN_REQS_DB = environ.get("JOIN_REQS_DB", DATABASE_URI)
 
 # Others
