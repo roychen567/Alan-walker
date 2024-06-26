@@ -105,6 +105,26 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                     disable_web_page_preview=True
                 )
                 return False
+        if buttons != "[]":
+            text=f"""<b>𝐇𝐞𝐲..</b>{update.from_user.mention} 🙋‍♂️ \n\nᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ʙᴏᴛ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ꜰɪʀꜱᴛ, \nᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ.!! \n\n <b>താഴെ കാണുന്ന 𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 എന്ന ബട്ടണിൽ ക്ലിക്ക് ചെയ്യിത് ചാനലിൽ ജോയിൻ ചെയ്യുക, \n\nഅപ്പോൾ നിങ്ങൾക്ക് ഓട്ടോമാറ്റിക് ആയി മൂവി ലഭിക്കുന്നതാണ്.!!</b>"""
+            if file_id is False:
+                buttons.pop()
+  
+            if not is_cb:
+                sh = await update.reply(
+                    text=text,
+                    quote=True,
+                    reply_markup=InlineKeyboardMarkup(buttons),
+                    parse_mode=enums.ParseMode.DEFAULT,
+                    disable_web_page_preview=True
+                )
+                check = await check_loop_sub(bot, update)
+                if check:
+                    await send_file(bot, update, mode, file_id)
+                    await sh.delete()                
+                else:
+                    return False
+            return False
     if REQ_CHANNEL2:
         try:
             if not await is_subscribed_two(bot, update):
