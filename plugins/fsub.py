@@ -95,7 +95,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
     if REQ_CHANNEL2:
         try:
             if not await is_subscribed_two(bot, update):
-                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)])
+                buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
         except Exception as e:
             buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
             logger.exception(e, exc_info=True)
