@@ -110,7 +110,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
         user = await bot.get_chat_member(
                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not db().isActive() else REQ_CHANNEL1), 
                    user_id=update.from_user.id
-               )
+        )
         if user.status == "kicked":
             await bot.send_message(
                 chat_id=update.from_user.id,
@@ -120,7 +120,10 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 reply_to_message_id=update.message_id
             )
             return False
-            
+    except UserNotParticipant:
+        print("er")
+         
+    try:
         text=f"""<b>𝐇𝐞𝐲..</b>{update.from_user.mention} 🙋‍♂️ \n\nᴘʟᴇᴀꜱᴇ ᴊᴏɪɴ ʙᴏᴛ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ꜰɪʀꜱᴛ, \nᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴛʜᴇ ᴍᴏᴠɪᴇ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ.!! \n\n <b>താഴെ കാണുന്ന 𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 എന്ന ബട്ടണിൽ ക്ലിക്ക് ചെയ്യിത് ചാനലിൽ ജോയിൻ ചെയ്യുക, \n\nഅപ്പോൾ നിങ്ങൾക്ക് ഓട്ടോമാറ്റിക് ആയി മൂവി ലഭിക്കുന്നതാണ്.!!</b>"""
         if file_id is False:
             buttons.pop()
@@ -140,8 +143,6 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
             else:
                 return False
         return False
-    except UserNotParticipant:
-        print("er")
     except FloodWait as e:
         await asyncio.sleep(e.x)
         fix_ = await ForceSub(bot, update, file_id)
