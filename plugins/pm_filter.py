@@ -860,7 +860,7 @@ async def advantage_spell_chok(msg):
             reply_markup=InlineKeyboardMarkup(button),
             reply_to_message_id=msg.id
         )                                           
-        await msg.delete()
+     #   await msg.delete()
         await asyncio.sleep(60)
         await k.delete()      
         return
@@ -875,7 +875,7 @@ async def advantage_spell_chok(msg):
             reply_markup=InlineKeyboardMarkup(button),
             reply_to_message_id=msg.id
         )                                           
-        await msg.delete()
+     #   await msg.delete()
         await asyncio.sleep(60)
         await k.delete()
         return
