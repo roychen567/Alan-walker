@@ -26,6 +26,10 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
 
     if not AUTH_CHANNEL and not REQ_CHANNEL1 and not REQ_CHANNEL2:
         return True
+    if REQ_CHANNEL1 and if  await is_subscribed_one(bot, update):
+        return True
+    if REQ_CHANNEL2 and if  await is_subscribed_two(bot, update):
+        return True
 
     is_cb = False
     if not hasattr(update, "chat"):
