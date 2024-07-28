@@ -26,10 +26,6 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
 
     if not AUTH_CHANNEL and not REQ_CHANNEL1 and not REQ_CHANNEL2:
         return True
-    if REQ_CHANNEL1 and await is_subscribed_one(bot, update):
-        return True
-    if REQ_CHANNEL2 and await is_subscribed_two(bot, update):
-        return True
 
     is_cb = False
     if not hasattr(update, "chat"):
@@ -84,7 +80,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
 
     buttons =[]
     # Mian Logic
-    if REQ_CHANNEL1:
+    if REQ_CHANNEL1 and not await is_subscribed_one(bot, update):
         try:
             if not await is_subscribed_one(bot, update):
                 buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 1", url=invite_link1)])
@@ -129,7 +125,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 else:
                     return False
             return False
-    if REQ_CHANNEL2:
+    if REQ_CHANNEL2 and not await is_subscribed_two(bot, update):
         try:
             if not await is_subscribed_two(bot, update):
                 buttons.append([InlineKeyboardButton("𝗝𝗢𝗜𝗡 𝗖𝗛𝗔𝗡𝗡𝗘𝗟 2", url=invite_link2)])
