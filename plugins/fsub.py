@@ -185,7 +185,7 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
     except Exception as err:
         print(f"Something Went Wrong! Unable to do Force Subscribe.\nError: {err}")
         await update.reply(
-            text="Something went Wrong.",
+            text=f"Something went Wrong. {err}",
             parse_mode=enums.ParseMode.MARKDOWN,
             disable_web_page_preview=True
         )
