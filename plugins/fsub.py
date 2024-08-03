@@ -139,6 +139,8 @@ async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="che
                 disable_web_page_preview=True
             )
             return False   
+    else:
+        return True
     try:
         user = await bot.get_chat_member(
                    chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL1 and not db().isActive() else REQ_CHANNEL1), 
