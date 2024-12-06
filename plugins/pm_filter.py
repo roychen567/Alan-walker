@@ -591,7 +591,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "start":
         buttons = [[
                 InlineKeyboardButton('🔸 ɢʀᴏᴜᴘ 🔸', url='https://t.me/+N8PS75om8Zw5ZjE1'),
-                InlineKeyboardButton('🔸ᴜᴘᴅᴀᴛᴇ 🔸', url='https://t.me/+sVl4djnLE6plZDE1')
+                InlineKeyboardButton('🔸ᴜᴘᴅᴀᴛᴇ 🔸', url='https://t.me/+WlRlRi4MNF1mOGQ9')
               ],[  
                 InlineKeyboardButton('➕ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
               ],[
