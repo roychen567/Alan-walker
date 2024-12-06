@@ -98,7 +98,7 @@ async def next_page(bot, query):
     
     btn.insert(0, 
         [
-           InlineKeyboardButton("💌 ɢʀᴏᴜᴘ", url='https://t.me/Cinema_Kottaka_updates'),
+           InlineKeyboardButton("💌 ɢʀᴏᴜᴘ", url='https://t.me/+V4B2j2y_UGViYWVl'),
            InlineKeyboardButton("🌐 ʟᴀɴɢᴜᴀɢᴇs 🌐", callback_data=f"languages#{search.replace(' ', '_')}#{key}")
         ]
     )
