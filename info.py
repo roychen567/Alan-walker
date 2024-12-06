@@ -40,7 +40,7 @@ DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://Roy:Roy@alanwalker1.bv
 DATABASE_URI2 = environ.get('DATABASE_URI2', "mongodb+srv://Roy:Roy@alanwalker2.x9yrb.mongodb.net/?retryWrites=true&w=majority&appName=Alanwalker2")
 DATABASE_URI3 = environ.get('DATABASE_URI3', "mongodb+srv://Roy:Roy@cluster0.zzfqr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 DATABASE_URI4 = environ.get('DATABASE_URI4', "mongodb+srv://Roy:Roy@cluster0.phfty.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-DATABASE_URI5 = environ.get('DATABASE_URI5', "mongodb+srv://Roy:Roy@alanwalker4.zzjogud.mongodb.net/?retryWrites=true&w=majority&appName=Alanwalker4")
+DATABASE_URI5 = environ.get('DATABASE_URI5', "mongodb+srv://Roy:Roy@alanwalker5.ex3f9.mongodb.net/?retryWrites=true&w=majority&appName=Alanwalker5")
                             
 # FSUB
 auth_channel = environ.get('AUTH_CHANNEL')
