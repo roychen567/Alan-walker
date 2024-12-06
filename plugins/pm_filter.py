@@ -28,7 +28,7 @@ LANGUAGES = ["mal", "tam", "eng", "hin", "tel", "kan"]
 SPELL_CHECK = {}
 
 
-@Client.on_message(filters.group & filters.text & filters.incoming)
+@Client.on_message((filters.group | filters.private) & filters.text & filters.incoming)
 async def give_filters(client, message):
     k = await global_filters(client, message)    
     if k == False:
