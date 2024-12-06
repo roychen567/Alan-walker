@@ -62,7 +62,7 @@ async def start(client, message):
     if len(message.command) != 2:
         buttons = [[
                 InlineKeyboardButton('🔸 ɢʀᴏᴜᴘ 🔸', url='https://t.me/+N8PS75om8Zw5ZjE1'),
-                InlineKeyboardButton('🔸ᴜᴘᴅᴀᴛᴇ 🔸', url='https://t.me/+sVl4djnLE6plZDE1')
+                InlineKeyboardButton('🔸ᴜᴘᴅᴀᴛᴇ 🔸', url='https://t.me/+WlRlRi4MNF1mOGQ9')
               ],[  
                 InlineKeyboardButton('➕ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
               ],[
@@ -86,7 +86,7 @@ async def start(client, message):
             return        
         buttons = [[
                 InlineKeyboardButton('🔸 ɢʀᴏᴜᴘ 🔸', url='https://t.me/+N8PS75om8Zw5ZjE1'),
-                InlineKeyboardButton('🔸ᴜᴘᴅᴀᴛᴇ 🔸', url='https://t.me/+sVl4djnLE6plZDE1')
+                InlineKeyboardButton('🔸ᴜᴘᴅᴀᴛᴇ 🔸', url='https://t.me/+WlRlRi4MNF1mOGQ9')
               ],[  
                 InlineKeyboardButton('➕ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
               ],[
