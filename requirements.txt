@@ -1,5 +1,5 @@
 aiofiles
-git+https://github.com/youesky/pyrogram
+git+https://github.com/KurimuzonAkuma/pyrogram
 git+https://github.com/agronholm/anyio
 aiohttp
 bs4==0.0.1
