@@ -595,7 +595,7 @@ async def forward_files(chat_id, skip_count, channel_id, bot, message):
 async def handle_forward_command(update, bot):
     message = update
     chat_id = message.chat.id    
-    channel_id = "-1002062652602"    
+    channel_id = "-1001944406326"    
     reply_message = await message.reply_text("Forwarding files...")
     while True: 
         progress_document = fcol.find_one({"_id": "forward_progress"})    
