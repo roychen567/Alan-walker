@@ -578,7 +578,7 @@ async def forward_files(chat_id, skip_count, channel_id, bot, message):
         await bot.send_cached_media(
             chat_id=int(channel_id),
             file_id=file["_id"],
-            caption=f'📂 Fɪʟᴇ ɴᴀᴍᴇ : <code>{filename}</code>\n╭─────── • ◆ • ───────╮\n» ɢʀᴏᴜᴘ  :  <a href="https://t.me/Cinema_kottaka_group">𝙲𝚒𝚗𝚎𝚖𝚊 𝙺𝚘𝚝𝚝𝚊𝚔𝚊</a>  «\n» ᴜᴘᴅᴀᴛᴇꜱ :  <a href="https://t.me/Cinema_kottaka_official">𝙲𝚒𝚗𝚎𝚖𝚊 𝙺𝚘𝚝𝚝𝚊𝚔𝚊</a>«\n╰─────── • ◆ • ───────╯'
+            caption=f'📂 Fɪʟᴇ ɴᴀᴍᴇ : <code>{filename}</code>\n╭─────── • ◆ • ───────╮\n» ɢʀᴏᴜᴘ  :  <a href="https://t.me/Cinema_kottaka_group">𝙲𝚒𝚗𝚎𝚖𝚊 𝙺𝚘𝚝𝚝𝚊𝚔𝚊</a>  «\n» ᴜᴘᴅᴀᴛᴇꜱ :  <a href="https://t.me/+WlRlRi4MNF1mOGQ9">𝙲𝚒𝚗𝚎𝚖𝚊 𝙺𝚘𝚝𝚝𝚊𝚔𝚊</a>«\n╰─────── • ◆ • ───────╯'
         )
         total_files += 1                
         fcol.update_one({"_id": "forward_progress"}, {"$set": {"last_forwarded_file": total_files}}, upsert=True)
