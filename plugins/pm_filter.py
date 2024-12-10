@@ -861,8 +861,8 @@ async def advantage_spell_chok(msg):
             reply_to_message_id=msg.id
         )                                           
      #   await msg.delete()
-        await asyncio.sleep(60)
-        await k.delete()      
+     #   await asyncio.sleep(60)
+     #   await k.delete()      
         return
     movielist = []
     if not movies:
@@ -876,8 +876,8 @@ async def advantage_spell_chok(msg):
             reply_to_message_id=msg.id
         )                                           
      #   await msg.delete()
-        await asyncio.sleep(60)
-        await k.delete()
+     #  await asyncio.sleep(60)
+     #   await k.delete()
         return
     movielist += [f"{movie.get('title')} {movie.get('year')}" for movie in movies]
     SPELL_CHECK[mv_id] = movielist
@@ -895,9 +895,9 @@ async def advantage_spell_chok(msg):
         text="I Cᴏᴜʟᴅɴ'ᴛ Fɪɴᴅ Aɴʏᴛʜɪɴɢ Rᴇʟᴀᴛᴇᴅ Tᴏ Tʜᴀᴛ. Dɪᴅ Yᴏᴜ Mᴇᴀɴ Aɴʏ Oɴᴇ Oғ Tʜᴇsᴇ?",
         reply_markup=InlineKeyboardMarkup(btn)
     )
-    await asyncio.sleep(90)
-    await spell_check_del.delete()
-    await msg.delete()
+    #await asyncio.sleep(90)
+    #await spell_check_del.delete()
+    #await msg.delete()
 
 async def global_filters(client, message, text=False):
     group_id = message.chat.id
