@@ -93,3 +93,15 @@ async def broadcast_group(bot, message):
             outfile.write(failed)
         await message.reply_document('reason.txt', caption=f"𝖯𝗋𝗈𝗀𝗋𝖾𝗌𝗌 𝖢𝗈𝗆𝗉𝗅𝖾𝗍𝖾𝖽.\n𝖢𝗈𝗆𝗉𝗅𝖾𝗍𝖾𝖽 𝖨𝗇: {time_taken} 𝖲𝖾𝖼𝗈𝗇𝖽𝗌.\n𝖳𝗈𝗍𝖺𝗅 𝖦𝗋𝗈𝗎𝗉𝗌: {total_groups}\n𝖢𝗈𝗆𝗉𝗅𝖾𝗍𝖾𝖽: {done} / {total_groups}\n𝖲𝗎𝖼𝖼𝖾𝗌𝗌: {success}\n𝖣𝖾𝗅𝖾𝗍𝖾𝖽: {deleted}")
         os.remove("reason.txt")
+
+async def broadcast_messages_group(chat_id, message):
+    try:
+        await message.copy(chat_id=chat_id)
+        return True, "Succes", 'mm'
+    except FloodWait as e:
+        await asyncio.sleep(e.value)
+        return await broadcast_messages_group(chat_id, message)
+    except Exception as e:
+        await db.delete_chat(int(chat_id))       
+        logging.info(f"{chat_id} - PeerIdInvalid")
+        return False, "deleted", f'{e}\n\n'
